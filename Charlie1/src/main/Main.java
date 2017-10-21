@@ -33,6 +33,7 @@ public final class Main {
      * Tests for Class ImageProcessing
      */
     public static void testGetRed() { 
+    	System.out.println("testing getRed");
     	int color = 0b11110000_00001111_01010101;
     	int ref = 0b11110000;
     	int red = ImageProcessing.getRed(color);
@@ -78,7 +79,8 @@ public final class Main {
     	System.out.println("Test DistanceBasedSearch");
     	int[][] food = Helper.read("images/food.png");
     	int[][] onions = Helper.read("images/onions.png");
-    	double[][] distance = DistanceBasedSearch.distanceMatrix(onions, food); 			
+    	double[][] distance = DistanceBasedSearch.distanceMatrix(onions, food);
+    	Helper.show(ImageProcessing.matrixToRGBImage(distance, 0, 255), "Distance");
     	int[] p = Collector.findBest(distance, true);
     	Helper.drawBox(p[0], p[1], onions[0].length, onions.length, food);
     	Helper.show(food, "Found!");

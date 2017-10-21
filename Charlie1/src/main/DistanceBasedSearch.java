@@ -9,9 +9,16 @@ public class DistanceBasedSearch {
 	 * @return a double, the value of the error for the RGB pixel pair. (an integer in [0, 255])
 	 */
 	public static double pixelAbsoluteError(int patternPixel, int imagePixel) {
-
-    	// TODO implement me !
-		return -2;
+		int patternRed = ImageProcessing.getRed(patternPixel);
+		int patternGreen = ImageProcessing.getGreen(patternPixel);
+		int patternBlue = ImageProcessing.getBlue(patternPixel);
+		
+		int imageRed = ImageProcessing.getRed(imagePixel);
+		int imageGreen = ImageProcessing.getGreen(imagePixel);
+		int imageBlue = ImageProcessing.getBlue(imagePixel);
+		
+		return (Math.abs(patternRed-imageRed)+Math.abs(patternGreen-imageGreen) + Math.abs(patternBlue-imageBlue))
+				/3.0;
 	}
 
 	/**
@@ -27,9 +34,17 @@ public class DistanceBasedSearch {
 	 * should return -1 if the denominator is -1
 	 */
 	public static double meanAbsoluteError(int row, int col, int[][] pattern, int[][] image) {
-
-    	// TODO implement me !
-		return -2; 
+		if(!(row+pattern.length<image.length  && col+pattern[0].length< image[0].length))
+			throw new IllegalArgumentException("peu pas colle cette image");
+		int d = pattern.length*pattern[0].length;
+		double error = 0;
+		for(int ligne = 0; ligne<pattern.length; ligne++) {
+			for(int colonne = 0; colonne<pattern[0].length; colonne++) {
+				error += pixelAbsoluteError(pattern[ligne][colonne], 
+						image[row+ligne][col + colonne]);
+			}
+		}
+		return error/d; 
 	}
 
 	/**
@@ -42,7 +57,14 @@ public class DistanceBasedSearch {
 	 */
 	public static double[][] distanceMatrix(int[][] pattern, int[][] image) {
 
-    	// TODO implement me !
-		return new double[][]{}; 
+		double[][] matrix = new double[image.length][image[0].length]; //TODO OPTI : moins gros
+		
+		for(int row =0; row+pattern.length<image.length; row++) {
+			for(int col =0; col+pattern[0].length<image[0].length; col++) {
+				matrix[row][col] = meanAbsoluteError(row, col, pattern, image);
+			}
+		}
+
+		return matrix; 
 	}
 }
