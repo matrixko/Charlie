@@ -11,7 +11,7 @@ public final class ImageProcessing {
      */
     public static int getRed(int rgb) {
 
-    	// TODO implement me !
+    	// TODO implement me !ok
     	return -2; 
     }
 
