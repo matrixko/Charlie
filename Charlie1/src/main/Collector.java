@@ -1,5 +1,7 @@
 package main;
 
+import static org.junit.jupiter.api.Assumptions.assumingThat;
+
 import java.util.ArrayList;
 
 public class Collector {
@@ -11,9 +13,31 @@ public class Collector {
 	 * @return an array of two integer coordinates, row first and then column
 	 */
 	public static int[] findBest(double[][] matrix, boolean smallestFirst) {
-
-    	// TODO implement me !
-		return new int[]{};
+	double best;
+	if(smallestFirst)
+		best = Double.POSITIVE_INFINITY;
+	else
+		best = Double.NEGATIVE_INFINITY;
+	
+	int row =0, col= 0;
+	
+	for (int i = 0; i < matrix.length; i++) {
+		for(int j =0; j< matrix[i].length; j++) {
+			double element = matrix[i][j];
+			if(smallestFirst && element<best) {
+				best = element;
+				row = i;
+				col = j;
+			}
+			if(!smallestFirst && element >best) {
+				best = element;
+				row = i;
+				col = j;
+			}
+		}
+	}
+	
+		return new int[]{row,col};
 	}
 
 	
@@ -25,9 +49,18 @@ public class Collector {
 	 * @return an array of size n containing row, column-coordinate pairs
 	 */
 	public static int[][] findNBest(int n, double[][] matrix, boolean smallestFirst) {
-
-    	// TODO implement me !
-		return new int[][]{};
+	double[][] matrixCopy = matrix.clone();
+	int[][] pairs = new int[n][2];
+	
+	for(int i=0; i<n; i++) {
+		int[] position = findBest(matrixCopy, smallestFirst);
+		if(smallestFirst) {
+			matrixCopy[position[0]][position[1]] = Double.POSITIVE_INFINITY;
+		}
+		else
+			matrixCopy[position[0]][position[1]] = Double.NEGATIVE_INFINITY;
+	}
+	return pairs;
 	}
 	
 	
