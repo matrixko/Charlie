@@ -82,6 +82,8 @@ public final class Main {
     	double[][] distance = DistanceBasedSearch.distanceMatrix(onions, food);
     	Helper.show(ImageProcessing.matrixToRGBImage(distance, 0, 255), "Distance");
     	int[] p = Collector.findBest(distance, true);
+    	System.out.println("best ="+p[0]+" "+p[1]
+    			);
     	Helper.drawBox(p[0], p[1], onions[0].length, onions.length, food);
     	Helper.show(food, "Found!");
     }

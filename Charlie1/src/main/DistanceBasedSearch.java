@@ -12,11 +12,11 @@ public class DistanceBasedSearch {
 		int patternRed = ImageProcessing.getRed(patternPixel);
 		int patternGreen = ImageProcessing.getGreen(patternPixel);
 		int patternBlue = ImageProcessing.getBlue(patternPixel);
-		
+
 		int imageRed = ImageProcessing.getRed(imagePixel);
 		int imageGreen = ImageProcessing.getGreen(imagePixel);
 		int imageBlue = ImageProcessing.getBlue(imagePixel);
-		
+
 		return (Math.abs(patternRed-imageRed)+Math.abs(patternGreen-imageGreen) + Math.abs(patternBlue-imageBlue))
 				/3.0;
 	}
@@ -56,11 +56,19 @@ public class DistanceBasedSearch {
 	 * placed over this pixel (upper-left corner) 
 	 */
 	public static double[][] distanceMatrix(int[][] pattern, int[][] image) {
-
+		/*
 		double[][] matrix = new double[image.length][image[0].length]; //TODO OPTI : moins gros
-		
+
 		for(int row =0; row+pattern.length<image.length; row++) {
 			for(int col =0; col+pattern[0].length<image[0].length; col++) {
+				matrix[row][col] = meanAbsoluteError(row, col, pattern, image);
+			}
+		}
+*/
+		double[][] matrix = new double[image.length-pattern.length][image[0].length-pattern[0].length]; //TODO OPTI : moins gros
+
+		for(int row =0; row <matrix.length; row++) {
+			for(int col =0; col<matrix[0].length; col++) {
 				matrix[row][col] = meanAbsoluteError(row, col, pattern, image);
 			}
 		}
