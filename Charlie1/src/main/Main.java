@@ -21,10 +21,10 @@ public final class Main {
 	 */
 	
     public static void main(String[] args) {
-    	testGetRed();
-    	testGrayscale();
-    	testFindNBest();
-    	testDistanceBasedSearch();
+    	//testGetRed();
+    	//testGrayscale();
+    	//testFindNBest();
+    	//testDistanceBasedSearch();
     	testSimilarityBasedSearch();   
     	findCharlie();
     }
